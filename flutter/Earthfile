@@ -1,0 +1,47 @@
+VERSION 0.6
+
+FROM ubuntu:22.04
+
+build:
+  DO ../+SYSTEM_LIBRARIES
+  DO ../+USER
+  DO ../+EARTHLY
+  DO ../+OH_MY_BASH
+  DO +SYSTEM_LIBRARIES
+  DO +ANDROID_SDK
+  DO +FLUTTER
+  DO +GOOGLE_CHROME
+  ENTRYPOINT ["bash"]
+  SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/flutter
+
+ANDROID_SDK:
+  COMMAND
+  ENV ANDROID_SDK_ROOT=$HOME/android-sdk
+  ENV PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+  RUN curl -L https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -o android-sdk.zip && \
+      mkdir -p $ANDROID_SDK_ROOT/cmdline-tools && \
+      unzip android-sdk.zip -d $ANDROID_SDK_ROOT/cmdline-tools && \
+      mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools $ANDROID_SDK_ROOT/cmdline-tools/latest && \
+      rm -rf android-sdk.zip
+  RUN sdkmanager --update && \
+      yes | sdkmanager "platforms;android-33" "build-tools;33.0.2" "extras;google;m2repository" "extras;android;m2repository" && \
+      yes | sdkmanager --licenses
+
+FLUTTER:
+  COMMAND
+  ENV PATH=$HOME/flutter/bin:$PATH
+  RUN git clone https://github.com/flutter/flutter.git -b stable && \
+      flutter precache
+
+GOOGLE_CHROME:
+  COMMAND
+  RUN curl -L https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o google-chrome.deb && \
+      sudo apt-get install ./google-chrome.deb && \
+      rm google-chrome.deb
+
+SYSTEM_LIBRARIES:
+  COMMAND
+  RUN sudo apt-get update && \
+      sudo apt-get install -y \
+        clang cmake fonts-liberation libgtk-3-dev libu2f-udev libvulkan1 ninja-build openjdk-18-jdk wget xdg-utils && \
+      sudo rm -rf /var/lib/apt/lists/*
