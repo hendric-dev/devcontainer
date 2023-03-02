@@ -3,11 +3,11 @@ VERSION 0.6
 FROM ubuntu:22.04
 
 build:
-  DO shared+BUILD
-  DO flutter+BUILD
-  DO infrastructure+BUILD
-  DO rust+BUILD
-  DO typescript+BUILD
+  DO ./shared+BUILD
+  DO ./flutter+BUILD
+  DO ./infrastructure+BUILD
+  DO ./rust+BUILD
+  DO ./typescript+BUILD
   DO +BUILD
   ENTRYPOINT ["bash"]
   SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer
