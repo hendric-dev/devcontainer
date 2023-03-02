@@ -1,0 +1,72 @@
+// For format details, see https://containers.dev/implementors/json_reference/
+{
+	"name": "Development",
+	"image": "ghcr.io/hendric-dev/devcontainer",
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"4ops.terraform",
+				"castwide.solargraph",
+				"dbaeumer.vscode-eslint",
+				"eamodio.gitlens",
+				"earthly.earthfile-syntax-highlighting",
+				"golang.go",
+				"grafana.vscode-jsonnet",
+				"humao.rest-client",
+				"moalamri.inline-fold",
+				"pflannery.vscode-versionlens",
+				"rebornix.ruby",
+				"rome.rome",
+				"rust-lang.rust-analyzer",
+				"tamasfe.even-better-toml",
+				"usernamehw.errorlens",
+				"vue.volar",
+				"vue.vscode-typescript-vue-plugin",
+				"yzhang.markdown-all-in-one"
+			],
+			"settings": {
+				"editor.codeActionsOnSave": {
+					"source.fixAll.eslint": true
+				},
+				"eslint.workingDirectories": [{ "mode": "auto" }],
+				"go.useLanguageServer": true,
+				"gopls": {
+					"ui.semanticTokens": true
+				},
+				"ruby.format": "rubocop",
+				"ruby.lint": {
+					"rubocop": {
+						"useBundler": true
+					}
+				},
+				"ruby.useBundler": true,
+				"ruby.useLanguageServer": true,
+				"solargraph.commandPath": "/home/developer/.rbenv/shims/solargraph",
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"typescript.inlayHints.variableTypes.enabled": true,
+				"[rust]": {
+					"editor.formatOnSave": true
+				}
+			}
+		}
+	},
+	"features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+			"version": "latest",
+			"moby": true
+		}
+	},
+	"mounts": [
+		"source=${localEnv:HOME}/.bash_history,target=/home/developer/.bash_history,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.config/gcloud,target=/home/developer/.config/gcloud,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.docker,target=/home/developer/.docker,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.kube,target=/home/developer/.kube,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.oci,target=/home/developer/.oci,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.ssh,target=/home/developer/.ssh,type=bind,consistency=cached",
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+	],
+	"runArgs": ["--network=host"]
+}
