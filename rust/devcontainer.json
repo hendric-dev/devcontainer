@@ -11,6 +11,7 @@
 				"eamodio.gitlens",
 				"earthly.earthfile-syntax-highlighting",
         "rust-lang.rust-analyzer",
+				"tamasfe.even-better-toml",
 				"usernamehw.errorlens",
 				"yzhang.markdown-all-in-one"
 			],

@@ -12,6 +12,7 @@
 				"eamodio.gitlens",
 				"earthly.earthfile-syntax-highlighting",
 				"golang.go",
+        "grafana.vscode-jsonnet",
 				"usernamehw.errorlens",
 				"yzhang.markdown-all-in-one"
 			],
