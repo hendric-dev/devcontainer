@@ -3,15 +3,16 @@ VERSION 0.6
 FROM ubuntu:22.04
 
 build:
-  DO ../+SYSTEM_LIBRARIES
-  DO ../+USER
-  DO ../+EARTHLY
-  DO ../+OH_MY_BASH
+  DO ../shared+BUILD
+  DO +BUILD
+  ENTRYPOINT ["bash"]
+  SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/typescript
+
+BUILD:
+  COMMAND
   DO +BUN
   DO +DENO
   DO +NODE
-  ENTRYPOINT ["bash"]
-  SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/typescript
 
 BUN:
   COMMAND

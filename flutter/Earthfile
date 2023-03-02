@@ -3,16 +3,17 @@ VERSION 0.6
 FROM ubuntu:22.04
 
 build:
-  DO ../+SYSTEM_LIBRARIES
-  DO ../+USER
-  DO ../+EARTHLY
-  DO ../+OH_MY_BASH
+  DO ../shared+BUILD
+  DO +BUILD
+  ENTRYPOINT ["bash"]
+  SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/flutter
+
+BUILD:
+  COMMAND
   DO +SYSTEM_LIBRARIES
   DO +ANDROID_SDK
   DO +FLUTTER
   DO +GOOGLE_CHROME
-  ENTRYPOINT ["bash"]
-  SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/flutter
 
 ANDROID_SDK:
   COMMAND
