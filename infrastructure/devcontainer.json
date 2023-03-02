@@ -1,0 +1,43 @@
+// For format details, see https://containers.dev/implementors/json_reference/
+{
+	"name": "Infrastructure Development",
+	"image": "ghcr.io/hendric-dev/devcontainer/infrastructure",
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"4ops.terraform",
+				"eamodio.gitlens",
+				"earthly.earthfile-syntax-highlighting",
+				"golang.go",
+				"usernamehw.errorlens",
+				"yzhang.markdown-all-in-one"
+			],
+			"settings": {
+				"go.useLanguageServer": true,
+				"gopls": {
+					"ui.semanticTokens": true
+				},
+				"terminal.integrated.defaultProfile.linux": "bash"
+			}
+		}
+	},
+	"features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+			"version": "latest",
+			"moby": true
+		}
+	},
+	"mounts": [
+		"source=${localEnv:HOME}/.bash_history,target=/home/developer/.bash_history,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.config/gcloud,target=/home/developer/.config/gcloud,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.docker,target=/home/developer/.docker,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.kube,target=/home/developer/.kube,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.oci,target=/home/developer/.oci,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.ssh,target=/home/developer/.ssh,type=bind,consistency=cached",
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+	],
+	"runArgs": ["--network=host"]
+}

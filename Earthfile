@@ -15,7 +15,7 @@ SYSTEM_LIBRARIES:
   ENV DEBIAN_FRONTEND=noninteractive
   ENV LANG=de_DE.UTF-8
   RUN apt-get update && \
-      apt-get install -y curl git locales sudo tzdata vim zip && \
+      apt-get install -y apt-transport-https ca-certificates curl git locales sudo tzdata vim zip && \
       rm -rf /var/lib/apt/lists/*
   RUN locale-gen de_DE.UTF-8
 
