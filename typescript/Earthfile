@@ -1,0 +1,32 @@
+VERSION 0.6
+
+FROM ubuntu:22.04
+
+build:
+  DO ../+SYSTEM_LIBRARIES
+  DO ../+USER
+  DO ../+EARTHLY
+  DO ../+OH_MY_BASH
+  DO +BUN
+  DO +DENO
+  DO +NODE
+  ENTRYPOINT ["bash"]
+  SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/typescript
+
+BUN:
+  COMMAND
+  RUN curl https://bun.sh/install | bash
+  RUN sudo ln -s $HOME/.bun/bin/bun /usr/bin/bun
+
+DENO:
+  COMMAND
+  RUN curl -fsSL https://deno.land/x/install/install.sh | bash
+  RUN sudo ln -s $HOME/.deno/bin/deno /usr/bin/deno
+
+NODE:
+  COMMAND
+  ENV BASH_ENV=$HOME/.bashrc
+  ENV VOLTA_HOME=$HOME/.volta
+  ENV PATH $VOLTA_HOME/bin:$PATH
+  RUN curl https://get.volta.sh | bash
+  RUN volta install node && volta install yarn
