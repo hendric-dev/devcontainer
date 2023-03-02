@@ -18,6 +18,9 @@ Besides that all containers have some common tools that are generally useful:
 - [Earthly](https://earthly.dev/)
 - [Oh my Bash](https://github.com/ohmybash/oh-my-bash)
 
+There is also a multi-purpose devcontainer which can be found in the root of the project. \
+It includes multiple languages and tools, but beware, the image is quite big.
+
 ## Usage
 
 Create a `.devcontainer` inside your project or workspace. \
