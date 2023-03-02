@@ -71,13 +71,13 @@ RUBY:
 
 SYSTEM_LIBRARIES:
   COMMAND
-  RUN apt-get update && \
-      apt-get install -y \
+  RUN sudo apt-get update && \
+      sudo apt-get install -y \
         build-essential bc gnupg libaio1 libasound2 libatk1.0-0 libatk-bridge2.0-0 libatspi2.0-0 libcairo2 libcups2 \
         libdbus-1-3 libdbus-glib-1-2 libdrm2 libgbm libnss3 libnspr4 libpango-1.0-0 libssl-dev libx11-xcb1 \
         libxcomposite1 libxdamage1 libxfixes3 libxkbcommon0 libxrandr2 libyaml-dev lsb-release pkg-config unzip \
         zlib1g-dev && \
-      rm -rf /var/lib/apt/lists/*
+      sudo rm -rf /var/lib/apt/lists/*
 
 VECTOR:
   COMMAND
