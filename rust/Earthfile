@@ -1,0 +1,16 @@
+VERSION 0.6
+
+FROM ubuntu:22.04
+
+build:
+  DO ../+SYSTEM_LIBRARIES
+  DO ../+USER
+  DO ../+EARTHLY
+  DO ../+OH_MY_BASH
+  DO +RUST
+  ENTRYPOINT ["bash"]
+  SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/rust
+
+RUST:
+  COMMAND
+  RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
