@@ -30,6 +30,9 @@ Now create a symlink from the desired `devcontainer.json` into that folder. E.g.
 ln -s <path to devcontainer repo>/flutter/devcontainer.json <path to flutter project>/.devcontainer/devcontainer.json
 ```
 
+Some folders are mounted inside the devcontainer. See the volumes section in the `devcontainer.json`.
+Remove the ones you don't intend to use or create an empty folder on your machine.
+
 Upon opening the project you will be prompted to open it inside the container.
 
 ## Build
