@@ -5,6 +5,7 @@ FROM ubuntu:22.04
 build:
   DO ../shared+BUILD
   DO +BUILD
+  DO ../shared+CONFIG
   ENTRYPOINT ["bash"]
   SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/rust
 

@@ -23,17 +23,37 @@ It includes multiple languages and tools, but beware, the image is quite big.
 
 ## Usage
 
-Create a `.devcontainer` inside your project or workspace. \
-Now create a symlink from the desired `devcontainer.json` into that folder. E.g. for a Flutter project:
+Inside your project or workspace create a `.devcontainer` folder with a file called `devcontainer.json` inside.
 
-```sh
-ln -s <path to devcontainer repo>/flutter/devcontainer.json <path to flutter project>/.devcontainer/devcontainer.json
+Add the following and change the image to the devcontainer that should be used:
+
+```json
+{
+	"name": "Development",
+	"image": "ghcr.io/hendric-dev/devcontainer",
+	"features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+			"version": "latest",
+			"moby": true
+		}
+	},
+	"runArgs": ["--network=host"]
+}
 ```
 
-Some folders are mounted inside the devcontainer. See the volumes section in the `devcontainer.json`.
-Remove the ones you don't intend to use or create an empty folder on your machine.
-
 Upon opening the project you will be prompted to open it inside the container.
+
+> **Warning** \
+> Some folders are mounted inside the devcontainer. See the `mounts` section in the `devcontainer.json` in this project. \
+> Just create an empty folder for the ones you don't want to use.
+
+## Configuration
+
+A lot of config is already included into the Docker image. Check out the `devcontainer.json` next to the Earthfile of the image you are using.
+
+All settings can be overriden by the local `devcontainer.json` that was created above.
+
+See the [Config Reference](https://containers.dev/implementors/json_reference/) for all available options.
 
 ## Build
 

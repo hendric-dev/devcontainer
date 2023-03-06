@@ -1,7 +1,4 @@
-// For format details, see https://containers.dev/implementors/json_reference/
 {
-	"name": "Typescript Development",
-	"image": "ghcr.io/hendric-dev/devcontainer/typescript",
 	"containerEnv": {
 		"DISPLAY": "${localEnv:DISPLAY}"
 	},
@@ -28,16 +25,9 @@
 			}
 		}
 	},
-	"features": {
-    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
-			"version": "latest",
-			"moby": true
-		}
-	},
 	"mounts": [
 		"source=${localEnv:HOME}/.bash_history,target=/home/developer/.bash_history,type=bind,consistency=cached",
 		"source=${localEnv:HOME}/.docker,target=/home/developer/.docker,type=bind,consistency=cached",
 		"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
-	],
-	"runArgs": ["--network=host"]
+	]
 }

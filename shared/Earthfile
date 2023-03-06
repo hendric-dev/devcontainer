@@ -7,6 +7,12 @@ BUILD:
   DO +EARTHLY
   DO +OH_MY_BASH
 
+CONFIG:
+  COMMAND
+  COPY devcontainer.json .
+  ARG config=$(cat devcontainer.json)
+  LABEL devcontainer.metadata=$config
+
 EARTHLY:
   COMMAND
   RUN sudo curl -L https://github.com/earthly/earthly/releases/latest/download/earthly-linux-amd64 -o /usr/bin/earthly && \

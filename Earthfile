@@ -9,6 +9,7 @@ build:
   DO ./rust+BUILD
   DO ./typescript+BUILD
   DO +BUILD
+  DO ./shared+CONFIG
   ENTRYPOINT ["bash"]
   SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer
 
