@@ -23,6 +23,7 @@
 	"mounts": [
 		"source=${localEnv:HOME}/.bash_history,target=/home/developer/.bash_history,type=bind,consistency=cached",
 		"source=${localEnv:HOME}/.docker,target=/home/developer/.docker,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.ssh,target=/home/developer/.ssh,type=bind,consistency=cached",
 		"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
 	]
 }
