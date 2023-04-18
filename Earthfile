@@ -17,6 +17,7 @@ BUILD:
   COMMAND
   DO +SYSTEM_LIBRARIES
   DO +BENTHOS
+  DO +CLOUD_SQL_PROXY
   DO +KRAKEND --VERSION=2.2.1
   DO +ORACLE
   DO +PLAYWRIGHT
@@ -27,6 +28,12 @@ BUILD:
 BENTHOS:
   COMMAND
   RUN curl -Lsf https://sh.benthos.dev | bash
+
+CLOUD_SQL_PROXY:
+  COMMAND
+  RUN curl -o cloud-sql-proxy https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.1.2/cloud-sql-proxy.linux.amd64 && \
+      chmod a+x cloud-sql-proxy && \
+      sudo mv cloud-sql-proxy /usr/bin/
 
 GEMS:
   COMMAND
