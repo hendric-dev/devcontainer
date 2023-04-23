@@ -21,6 +21,7 @@
 				"usernamehw.errorlens",
 				"vue.volar",
 				"vue.vscode-typescript-vue-plugin",
+				"yoavbls.pretty-ts-errors",
 				"yzhang.markdown-all-in-one"
 			],
 			"settings": {
