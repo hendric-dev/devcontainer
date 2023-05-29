@@ -1,0 +1,13 @@
+- name: Check if Lapce is installed
+  stat:
+    path: /usr/local/bin/lapce
+  register: lapce
+
+- name: Download Lapce binary
+  when: not lapce.stat.exists
+  become: true
+  ansible.builtin.unarchive:
+    src: https://github.com/lapce/lapce/releases/latest/download/Lapce-linux.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+    extra_opts: --strip-components=1

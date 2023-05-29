@@ -1,0 +1,22 @@
+- name: Setup a Linux Desktop Environment
+  hosts: all
+  roles:
+    - { role: bun, tags: ['bun'] }
+    - { role: earthly, tags: ['earthly'] }
+    - { role: flatpak, tags: ['flatpak'] }
+    - { role: go, tags: ['go'] }
+    - { role: google-chrome, tags: ['google-chrome'] }
+    - { role: google-cloud-sdk, tags: ['google-cloud-sdk'] }
+    - { role: helm, tags: ['helm'] }
+    - { role: jsonnet, tags: ['jsonnet'] }
+    - { role: kubernetes, tags: ['kubernetes'] }
+    - { role: lapce, tags: ['lapce'] }
+    - { role: node-js, tags: ['node-js'] }
+    - { role: oh-my-bash, tags: ['oh-my-bash'] }
+    - { role: podman, tags: ['podman'] }
+    - { role: rust, tags: ['rust'] }
+    - { role: spotify, tags: ['spotify'] }
+    - { role: system-libraries, tags: ['system-libraries'] }
+    - { role: tanka, tags: ['tanka'] }
+    - { role: terraform, tags: ['terraform'] }
+    - { role: vscode, tags: ['vscode'] }

@@ -1,0 +1,5 @@
+- name: "[OpenSUSE] Install Terraform using Zypper"
+  become: true
+  ansible.builtin.package:
+    name: terraform
+    state: present

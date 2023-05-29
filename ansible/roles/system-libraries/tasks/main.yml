@@ -1,0 +1,17 @@
+- import_tasks: ../shared/tasks/import-os-specific-vars.yml
+
+- name: Install common system libraries
+  become: true
+  ansible.builtin.package:
+    name:
+      - ca-certificates
+      - curl
+      - git
+      - vim
+      - zip
+      - "{{ gpg_package_name }}"
+    state: present
+
+- name: Install common system libraries for Debian
+  import_tasks: debian.yml
+  when: ansible_facts['os_family'] == 'Debian'

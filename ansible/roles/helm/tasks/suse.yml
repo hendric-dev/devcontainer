@@ -1,0 +1,5 @@
+- name: "[OpenSUSE] Install Helm using Zypper"
+  become: true
+  community.general.zypper:
+    name: helm
+    state: present

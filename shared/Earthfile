@@ -1,11 +1,19 @@
-VERSION 0.6
+VERSION 0.7
 
 BUILD:
   COMMAND
-  DO +SYSTEM_LIBRARIES
   DO +USER
-  DO +EARTHLY
-  DO +OH_MY_BASH
+  DO +ANSIBLE
+  COPY ../ansible+file/ansible $HOME/ansible
+  DO +RUN_ANSIBLE_SCRIPT --tags=earthly,oh-my-bash
+
+ANSIBLE:
+  COMMAND
+  RUN sudo apt-get update && \
+      sudo apt-get install -y ansible && \
+      sudo rm -rf /var/lib/apt/lists/*
+  RUN ansible-galaxy collection install community.general
+  ENV ANSIBLE_FORCE_COLOR=True
 
 CONFIG:
   COMMAND
@@ -13,32 +21,28 @@ CONFIG:
   ARG config=$(cat devcontainer.json)
   LABEL devcontainer.metadata=$config
 
-EARTHLY:
+RUN_ANSIBLE_SCRIPT:
   COMMAND
-  RUN sudo curl -L https://github.com/earthly/earthly/releases/latest/download/earthly-linux-amd64 -o /usr/bin/earthly && \
-      sudo chmod +x /usr/bin/earthly
+  ARG tags
+  RUN ansible-playbook $HOME/ansible/main.yml -i $HOME/ansible/inventory.yml --tags $tags
 
-OH_MY_BASH:
+USER:
   COMMAND
-  RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" && \
-      sed -i 's/OSH_THEME="font"/OSH_THEME="agnoster"/' $HOME/.bashrc
+  DO +USER_PREREQUISITES
+  ENV USER=developer
+  ENV HOME=/home/$USER
+  RUN useradd --create-home --shell /bin/bash $USER && \
+      usermod -aG sudo $USER && \
+      echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+      chown -R $USER:$USER $HOME
+  USER $USER
+  WORKDIR $HOME
 
-SYSTEM_LIBRARIES:
+USER_PREREQUISITES:
   COMMAND
   ENV DEBIAN_FRONTEND=noninteractive
   ENV LANG=de_DE.UTF-8
   RUN apt-get update && \
-      apt-get install -y apt-transport-https ca-certificates curl git locales sudo tzdata vim zip && \
+      apt-get install -y locales sudo tzdata && \
       rm -rf /var/lib/apt/lists/*
   RUN locale-gen de_DE.UTF-8
-
-USER:
-  COMMAND
-  ENV USER=developer
-  ENV HOME=/home/$USER
-  RUN adduser --home $HOME --disabled-password --gecos "" --shell /bin/bash $USER && \
-      chown -R $USER $HOME && \
-      adduser $USER sudo && \
-      echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-  USER $USER
-  WORKDIR $HOME

@@ -1,0 +1,20 @@
+- name: "[Debian] Import the Microsoft GPG Key"
+  become: true
+  ansible.builtin.apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    keyring: /etc/apt/keyrings/packages.microsoft.gpg
+    state: present
+
+- name: "[Debian] Add the Visual Studio Code repository to APT"
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
+    filename: vscode
+    state: present
+
+- name: "[Debian] Install Visual Studio Code using APT"
+  become: true
+  ansible.builtin.apt:
+    name: code
+    state: present
+    update_cache: yes

@@ -1,0 +1,12 @@
+- name: Check if Earthly is installed
+  stat:
+    path: /usr/local/bin/earthly
+  register: earthly
+
+- name: Download Earthly binary
+  when: not earthly.stat.exists
+  become: true
+  get_url:
+    url: https://github.com/earthly/earthly/releases/latest/download/earthly-linux-amd64
+    dest: /usr/local/bin/earthly
+    mode: 0711

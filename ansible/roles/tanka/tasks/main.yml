@@ -1,0 +1,6 @@
+- name: Download Tanka binary
+  become: true
+  get_url:
+    url: https://github.com/grafana/tanka/releases/latest/download/tk-linux-amd64
+    dest: /usr/local/bin/tk
+    mode: 0711

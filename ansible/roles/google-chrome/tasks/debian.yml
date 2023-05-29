@@ -1,0 +1,19 @@
+- name: "[Debian] Import the Google GPG Key"
+  become: true
+  ansible.builtin.apt_key:
+    url: https://dl.google.com/linux/linux_signing_key.pub
+    state: present
+
+- name: "[Debian] Add the Google Chrome repository to APT"
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+    filename: chrome
+    state: present
+
+- name: "[Debian] Install Google Chrome using APT"
+  become: true
+  ansible.builtin.apt:
+    name: google-chrome-stable
+    state: present
+    update_cache: yes

@@ -1,0 +1,4 @@
+- name: Download Spotify using Flatpak
+  community.general.flatpak:
+    name:  com.spotify.Client
+    state: present

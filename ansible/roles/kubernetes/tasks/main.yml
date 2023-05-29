@@ -1,0 +1,16 @@
+- name: Fetch latest stable Kubectl version
+  uri:
+    url: https://dl.k8s.io/release/stable.txt
+    return_content: yes
+  register: stable_version
+
+- name: Set Kubectl version fact
+  set_fact:
+    kubectl_version: "{{ stable_version.content | replace('\n', '') }}"
+
+- name: Download Kubectl binary
+  become: true
+  get_url:
+    url: https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/kubectl
+    mode: 0711

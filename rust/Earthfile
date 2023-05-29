@@ -1,23 +1,10 @@
-VERSION 0.6
+VERSION 0.7
 
-FROM ubuntu:22.04
+FROM ubuntu:23.10
 
 build:
   DO ../shared+BUILD
-  DO +BUILD
-  DO +SYSTEM_LIBRARIES
+  DO ../shared+RUN_ANSIBLE_SCRIPT --tags=rust
   DO ../shared+CONFIG
   ENTRYPOINT ["bash"]
   SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/rust
-
-BUILD:
-  COMMAND
-  DO +RUST
-
-RUST:
-  COMMAND
-  RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
-SYSTEM_LIBRARIES:
-  COMMAND
-  RUN sudo apt-get update && sudo apt-get install -y gcc && sudo rm -rf /var/lib/apt/lists/*

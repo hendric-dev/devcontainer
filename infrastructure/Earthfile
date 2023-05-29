@@ -11,7 +11,6 @@ build:
 
 BUILD:
   COMMAND
-  DO +ANSIBLE
   DO +GOOGLE_CLOUD_CLI --VERSION=431.0.0
   DO +GO --VERSION=1.20.1
   DO +HELM
@@ -20,12 +19,6 @@ BUILD:
   DO +ORACLE_CLOUD_CLI
   DO +TANKA
   DO +TERRAFORM --VERSION=1.4.6
-
-ANSIBLE:
-  COMMAND
-  RUN sudo apt-get update && \
-      sudo apt-get install -y ansible && \
-      sudo rm -rf /var/lib/apt/lists/*
 
 GO:
   COMMAND

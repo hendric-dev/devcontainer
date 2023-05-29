@@ -1,0 +1,7 @@
+- name: Install Visual Studio Code for Debian
+  import_tasks: debian.yml
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Install Visual Studio Code for OpenSUSE
+  import_tasks: suse.yml
+  when: ansible_facts['os_family'] == 'Suse'

@@ -1,0 +1,28 @@
+- name: Check if Google Cloud SDK is installed
+  stat:
+    path: ~/google-cloud-sdk
+  register: google_cloud_sdk
+
+- name: Download Google Cloud SDK install script
+  when: not google_cloud_sdk.stat.exists
+  get_url:
+    url: https://sdk.cloud.google.com
+    dest: ~/google-cloud-sdk.sh
+    mode: 0755
+
+- name: Execute Google Cloud SDK install script
+  when: not google_cloud_sdk.stat.exists
+  shell: ~/google-cloud-sdk.sh --disable-prompts
+
+- name: Remove Google Cloud SDK install script
+  when: not google_cloud_sdk.stat.exists
+  ansible.builtin.file:
+    path: ~/google-cloud-sdk.sh
+    state: absent
+
+- name: Add Google Cloud SDK path to .bashrc
+  ansible.builtin.lineinfile:
+    dest: ~/.bashrc
+    line: 'export PATH="$PATH:$HOME/google-cloud-sdk/bin"'
+    state: present
+    insertafter: EOF
