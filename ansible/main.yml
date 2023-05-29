@@ -2,6 +2,7 @@
   hosts: all
   roles:
     - { role: bun, tags: ['bun'] }
+    - { role: cloud-sql-proxy, tags: ['cloud-sql-proxy'] }
     - { role: earthly, tags: ['earthly'] }
     - { role: flatpak, tags: ['flatpak'] }
     - { role: go, tags: ['go', 'infrastructure'] }
@@ -15,6 +16,7 @@
     - { role: oh-my-bash, tags: ['oh-my-bash'] }
     - { role: oracle-cloud-cli, tags: ['oracle-cloud-cli', 'infrastructure'] }
     - { role: podman, tags: ['podman'] }
+    - { role: ruby, tags: ['ruby'] }
     - { role: rust, tags: ['rust'] }
     - { role: spotify, tags: ['spotify'] }
     - { role: system-libraries, tags: ['system-libraries'] }

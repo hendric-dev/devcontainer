@@ -4,7 +4,11 @@ FROM ubuntu:23.10
 
 build:
   DO ../shared+BUILD
-  DO ../shared+RUN_ANSIBLE_SCRIPT --tags=infrastructure
+  DO +BUILD
   DO ../shared+CONFIG
   ENTRYPOINT ["bash"]
   SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/infrastructure
+
+BUILD:
+  COMMAND
+  DO ../shared+RUN_ANSIBLE_SCRIPT --tags=infrastructure

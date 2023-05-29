@@ -1,0 +1,10 @@
+- name: Fetch latest version of Cloud SQL Proxy
+  shell: curl https://api.github.com/repos/GoogleCloudPlatform/cloud-sql-proxy/releases -s | jq -r .[0].name
+  register: cloud_sql_proxy_version
+
+- name: Download Cloud SQL Proxy binary
+  become: true
+  get_url:
+    url: https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/{{ cloud_sql_proxy_version.stdout }}/cloud-sql-proxy.linux.amd64
+    dest: /usr/local/bin/cloud-sql-proxy
+    mode: 0711
