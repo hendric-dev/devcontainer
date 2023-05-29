@@ -14,13 +14,12 @@ build:
 
 BUILD:
   COMMAND
-  DO ./shared+RUN_ANSIBLE_SCRIPT --tags=cloud-sql-proxy,ruby
+  DO ./shared+RUN_ANSIBLE_SCRIPT --tags=cloud-sql-proxy,ruby,vector
   DO +SYSTEM_LIBRARIES
   DO +BENTHOS
   DO +KRAKEND --VERSION=2.2.1
   DO +ORACLE
   DO +PLAYWRIGHT
-  DO +VECTOR
 
 BENTHOS:
   COMMAND
@@ -61,8 +60,3 @@ SYSTEM_LIBRARIES:
         libxcomposite1 libxdamage1 libxfixes3 libxkbcommon0 libxrandr2 lsb-release pkg-config unzip \
         zlib1g-dev && \
       sudo rm -rf /var/lib/apt/lists/*
-
-VECTOR:
-  COMMAND
-  RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.vector.dev | bash -s -- -y
-  RUN sudo ln -s $HOME/.vector/bin/vector /usr/bin/vector

@@ -22,4 +22,7 @@
     - { role: system-libraries, tags: ['system-libraries'] }
     - { role: tanka, tags: ['tanka', 'infrastructure'] }
     - { role: terraform, tags: ['terraform', 'infrastructure'] }
+    - { role: vector, tags: ['vector'] }
     - { role: vscode, tags: ['vscode'] }
+  vars_files:
+    - variables.yml

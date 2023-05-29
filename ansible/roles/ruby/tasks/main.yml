@@ -1,9 +1,11 @@
 - import_tasks: ../shared/tasks/import-os-specific-vars.yml
 
-- name: Install Ruby system dependencies
+- name: Install Ruby
   become: true
   ansible.builtin.package:
-    name: "{{ libyaml_package_name }}"
+    name:
+      - "{{ libyaml_package_name }}"
+      - "{{ ruby_package_name }}"
     state: present
 
 - name: Install rbenv
@@ -24,11 +26,13 @@
     repo: https://github.com/rbenv/ruby-build.git
     dest: ~/.rbenv/plugins/ruby-build
 
-- name: Install latest Ruby version
+- name: Force latest Ruby version using rbenv
+  when: install_latest_ruby | default(false) | bool
   shell: |
     ruby_version=$(rbenv install -l | grep -v - | tail -1)
     rbenv install $ruby_version --skip-existing
     rbenv global $ruby_version
+    eval "$(rbenv init - bash)"
 
 - name: Install latest available Bundler Gem
   community.general.gem:
