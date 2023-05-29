@@ -1,0 +1,21 @@
+- name: Check if Oracle Cloud CLI is installed
+  stat:
+    path: ~/bin/oci
+  register: oracle_cloud_cli
+
+- name: Download Oracle Cloud CLI install script
+  when: not oracle_cloud_cli.stat.exists
+  get_url:
+    url: https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh
+    dest: ~/oracle-cloud-cli.sh
+    mode: 0755
+
+- name: Execute Oracle Cloud CLI install script
+  when: not oracle_cloud_cli.stat.exists
+  shell: ~/oracle-cloud-cli.sh --accept-all-defaults
+
+- name: Remove Oracle Cloud CLI install script
+  when: not oracle_cloud_cli.stat.exists
+  ansible.builtin.file:
+    path: ~/oracle-cloud-cli.sh
+    state: absent

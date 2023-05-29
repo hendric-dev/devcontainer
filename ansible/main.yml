@@ -4,19 +4,20 @@
     - { role: bun, tags: ['bun'] }
     - { role: earthly, tags: ['earthly'] }
     - { role: flatpak, tags: ['flatpak'] }
-    - { role: go, tags: ['go'] }
+    - { role: go, tags: ['go', 'infrastructure'] }
     - { role: google-chrome, tags: ['google-chrome'] }
-    - { role: google-cloud-sdk, tags: ['google-cloud-sdk'] }
-    - { role: helm, tags: ['helm'] }
-    - { role: jsonnet, tags: ['jsonnet'] }
-    - { role: kubernetes, tags: ['kubernetes'] }
+    - { role: google-cloud-sdk, tags: ['google-cloud-sdk', 'infrastructure'] }
+    - { role: helm, tags: ['helm', 'infrastructure'] }
+    - { role: jsonnet, tags: ['jsonnet', 'infrastructure'] }
+    - { role: kubernetes, tags: ['kubernetes', 'infrastructure'] }
     - { role: lapce, tags: ['lapce'] }
     - { role: node-js, tags: ['node-js'] }
     - { role: oh-my-bash, tags: ['oh-my-bash'] }
+    - { role: oracle-cloud-cli, tags: ['oracle-cloud-cli', 'infrastructure'] }
     - { role: podman, tags: ['podman'] }
     - { role: rust, tags: ['rust'] }
     - { role: spotify, tags: ['spotify'] }
     - { role: system-libraries, tags: ['system-libraries'] }
-    - { role: tanka, tags: ['tanka'] }
-    - { role: terraform, tags: ['terraform'] }
+    - { role: tanka, tags: ['tanka', 'infrastructure'] }
+    - { role: terraform, tags: ['terraform', 'infrastructure'] }
     - { role: vscode, tags: ['vscode'] }
