@@ -3,3 +3,35 @@
   ansible.builtin.package:
     name: libaio1
     state: present
+
+- name: Create oracle folder in home directory
+  ansible.builtin.file:
+    path: ~/oracle
+    state: directory
+    mode: '0755'
+
+- name: Download Oracle Instant Client
+  ansible.builtin.unarchive:
+    src: https://download.oracle.com/otn_software/linux/instantclient/2110000/instantclient-basic-linux.x64-21.10.0.0.0dbru.zip
+    dest: ~/oracle
+    remote_src: yes
+
+- name: Download Oracle Instant Client SDK
+  ansible.builtin.unarchive:
+    src: https://download.oracle.com/otn_software/linux/instantclient/2110000/instantclient-sdk-linux.x64-21.10.0.0.0dbru.zip
+    dest: ~/oracle
+    remote_src: yes
+
+- name: Set LD_LIBRARY_PATH environment variable
+  ansible.builtin.lineinfile:
+    dest: ~/.bashrc
+    line: 'export LD_LIBRARY_PATH=$HOME/oracle/instantclient_21_7'
+    state: present
+    insertafter: EOF
+
+- name: Add Oracle Instant Client to PATH
+  ansible.builtin.lineinfile:
+    dest: ~/.bashrc
+    line: 'export PATH=$PATH:$HOME/oracle/instantclient_21_7'
+    state: present
+    insertafter: EOF
