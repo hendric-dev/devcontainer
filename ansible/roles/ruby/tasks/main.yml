@@ -32,14 +32,17 @@
     ruby_version=$(rbenv install -l | grep -v - | tail -1)
     rbenv install $ruby_version --skip-existing
     rbenv global $ruby_version
+
+- name: Install Bundler Gem
+  shell: |
     eval "$(rbenv init - bash)"
+    gem install bundler
+  args:
+    executable: /bin/bash
 
-- name: Install latest available Bundler Gem
-  community.general.gem:
-    name: bundler
-    state: latest
-
-- name: Install latest available Solargraph Gem
-  community.general.gem:
-    name: solargraph
-    state: latest
+- name: Install Solargraph Gem
+  shell: |
+    eval "$(rbenv init - bash)"
+    gem install solargraph
+  args:
+    executable: /bin/bash

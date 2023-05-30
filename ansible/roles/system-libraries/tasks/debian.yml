@@ -1,5 +1,7 @@
 - name: "[Debian] Install common system libraries"
   become: true
   ansible.builtin.package:
-    name: apt-transport-https
+    name:
+      - apt-transport-https
+      - pkg-config
     state: present
