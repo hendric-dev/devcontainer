@@ -1,0 +1,5 @@
+- name: Install Oracle Instant Client dependencies
+  become: true
+  ansible.builtin.package:
+    name: libaio1
+    state: present

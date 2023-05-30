@@ -1,3 +1,0 @@
-# Forces the latest Ruby version instead of relying on the system package manager.
-# Beware, this option might take ~10min to compile Ruby from source.
-install_latest_ruby: false

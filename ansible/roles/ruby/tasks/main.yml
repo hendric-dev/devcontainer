@@ -1,13 +1,3 @@
-- import_tasks: ../shared/tasks/import-os-specific-vars.yml
-
-- name: Install Ruby
-  become: true
-  ansible.builtin.package:
-    name:
-      - "{{ libyaml_package_name }}"
-      - "{{ ruby_package_name }}"
-    state: present
-
 - name: Install rbenv
   become: true
   ansible.builtin.package:
@@ -26,23 +16,15 @@
     repo: https://github.com/rbenv/ruby-build.git
     dest: ~/.rbenv/plugins/ruby-build
 
-- name: Force latest Ruby version using rbenv
-  when: install_latest_ruby | default(false) | bool
+- name: Install latest Ruby version using rbenv
   shell: |
     ruby_version=$(rbenv install -l | grep -v - | tail -1)
     rbenv install $ruby_version --skip-existing
     rbenv global $ruby_version
 
-- name: Install Bundler Gem
+- name: Install Bundler & Solargraph Gems
   shell: |
     eval "$(rbenv init - bash)"
-    gem install bundler
-  args:
-    executable: /bin/bash
-
-- name: Install Solargraph Gem
-  shell: |
-    eval "$(rbenv init - bash)"
-    gem install solargraph
+    gem install bundler solargraph
   args:
     executable: /bin/bash

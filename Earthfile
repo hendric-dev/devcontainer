@@ -19,7 +19,6 @@ BUILD:
 
 ORACLE:
   COMMAND
-  # libaio1
   ARG BASE_URL=https://download.oracle.com/otn_software/linux/instantclient/217000
   RUN curl $BASE_URL/instantclient-basic-linux.x64-21.7.0.0.0dbru.zip -o instantclient && \
       curl $BASE_URL/instantclient-sdk-linux.x64-21.7.0.0.0dbru.zip -o instantclient-sdk && \

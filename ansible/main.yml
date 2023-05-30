@@ -15,6 +15,7 @@
     - { role: node-js, tags: ['node-js'] }
     - { role: oh-my-bash, tags: ['oh-my-bash'] }
     - { role: oracle-cloud-cli, tags: ['oracle-cloud-cli', 'infrastructure'] }
+    - { role: oracle-instant-client, tags: ['oracle-instant-client'] }
     - { role: podman, tags: ['podman'] }
     - { role: ruby, tags: ['ruby'] }
     - { role: rust, tags: ['rust'] }
@@ -24,5 +25,3 @@
     - { role: terraform, tags: ['terraform', 'infrastructure'] }
     - { role: vector, tags: ['vector'] }
     - { role: vscode, tags: ['vscode'] }
-  vars_files:
-    - variables.yml
