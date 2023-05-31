@@ -1,14 +1,17 @@
 - name: Setup a Linux Desktop Environment
   hosts: all
   roles:
+    - { role: android-sdk, tags: ['android-sdk'] }
     - { role: bun, tags: ['bun'] }
     - { role: cloud-sql-proxy, tags: ['cloud-sql-proxy'] }
     - { role: earthly, tags: ['earthly'] }
     - { role: flatpak, tags: ['flatpak'] }
+    - { role: flutter, tags: ['flutter'] }
     - { role: go, tags: ['go', 'infrastructure'] }
     - { role: google-chrome, tags: ['google-chrome'] }
     - { role: google-cloud-sdk, tags: ['google-cloud-sdk', 'infrastructure'] }
     - { role: helm, tags: ['helm', 'infrastructure'] }
+    - { role: java, tags: ['java'] }
     - { role: jsonnet, tags: ['jsonnet', 'infrastructure'] }
     - { role: kubernetes, tags: ['kubernetes', 'infrastructure'] }
     - { role: lapce, tags: ['lapce'] }

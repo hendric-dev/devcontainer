@@ -1,0 +1,38 @@
+- import_tasks: ../shared/tasks/import-os-specific-vars.yml
+
+- name: Install Flutter system libraries
+  become: true
+  ansible.builtin.package:
+    name:
+      - clang
+      - cmake
+      - "{{ libgtk_package_name }}"
+      - "{{ ninja_package_name }}"
+    state: present
+
+- name: Create flutter folder in home directory
+  ansible.builtin.file:
+    path: ~/flutter
+    state: directory
+    mode: '0755'
+
+- name: Download Flutter SDK
+  ansible.builtin.unarchive:
+    src: https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.10.2-stable.tar.xz
+    dest: ~/
+    remote_src: yes
+
+- name: Add Flutter binary folder to PATH
+  ansible.builtin.lineinfile:
+    dest: ~/.bashrc
+    line: 'export PATH=$PATH:$HOME/flutter/bin'
+    state: present
+    insertafter: EOF
+
+- name: Precache Flutter development binaries
+  shell: |
+    flutter precache
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/flutter/bin"

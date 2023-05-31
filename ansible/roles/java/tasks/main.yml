@@ -1,0 +1,7 @@
+- import_tasks: ../shared/tasks/import-os-specific-vars.yml
+
+- name: Install OpenJDK
+  become: true
+  ansible.builtin.package:
+    name: "{{ openjdk_package_name }}"
+    state: present
