@@ -1,0 +1,28 @@
+- name: Check if oh-my-bash is installed
+  stat:
+    path: ~/.oh-my-bash
+  register: oh_my_bash
+
+- name: Download oh-my-bash install script
+  when: not oh_my_bash.stat.exists
+  get_url:
+    url: https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh
+    dest: ~/oh-my-bash.sh
+    mode: 0755
+
+- name: Execute oh-my-bash install script
+  when: not oh_my_bash.stat.exists
+  shell: ~/oh-my-bash.sh
+
+- name: Remove oh-my-bash install script
+  when: not oh_my_bash.stat.exists
+  ansible.builtin.file:
+    path: ~/oh-my-bash.sh
+    state: absent
+
+- name: Change bash theme to agnoster
+  ansible.builtin.lineinfile:
+    path: ~/.bashrc
+    regexp: '^OSH_THEME='
+    state: present
+    line: OSH_THEME="agnoster"

@@ -1,0 +1,20 @@
+- name: "[Debian] Import the Helm GPG Key"
+  become: true
+  ansible.builtin.apt_key:
+    url: https://baltocdn.com/helm/signing.asc
+    keyring: /usr/share/keyrings/helm.gpg
+    state: present
+
+- name: "[Debian] Add the Helm repository to APT"
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main"
+    filename: helm-stable-debian
+    state: present
+
+- name: "[Debian] Install Helm using APT"
+  become: true
+  ansible.builtin.apt:
+    name: helm
+    state: present
+    update_cache: yes

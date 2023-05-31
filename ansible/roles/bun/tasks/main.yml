@@ -1,0 +1,21 @@
+- name: Check if Bun is installed
+  stat:
+    path: ~/.bun/bin/bun
+  register: bun
+
+- name: Download Bun install script
+  when: not bun.stat.exists
+  get_url:
+    url: https://bun.sh/install
+    dest: ~/bun.sh
+    mode: 0755
+
+- name: Execute Bun install script
+  when: not bun.stat.exists
+  shell: ~/bun.sh
+
+- name: Remove Bun install script
+  when: not bun.stat.exists
+  ansible.builtin.file:
+    path: ~/bun.sh
+    state: absent

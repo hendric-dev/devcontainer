@@ -1,0 +1,20 @@
+- name: Download Vector install script
+  get_url:
+    url: https://sh.vector.dev
+    dest: ~/vector.sh
+    mode: 0755
+
+- name: Execute Vector install script
+  shell: ~/vector.sh -y
+
+- name: Remove Vector install script
+  ansible.builtin.file:
+    path: ~/vector.sh
+    state: absent
+
+- name: Add Vector path to .bashrc
+  ansible.builtin.lineinfile:
+    dest: ~/.bashrc
+    line: 'export PATH="$PATH:$HOME/.vector/bin"'
+    state: present
+    insertafter: EOF

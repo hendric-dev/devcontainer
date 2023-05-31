@@ -1,0 +1,39 @@
+- name: Create android-sdk folder in home directory
+  ansible.builtin.file:
+    path: ~/android-sdk/cmdline-tools
+    state: directory
+    mode: '0755'
+
+- name: Download Android SDK
+  ansible.builtin.unarchive:
+    src: https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+    dest: ~/android-sdk/cmdline-tools
+    remote_src: yes
+
+- name: Move Android SDK tools
+  shell: mv ~/android-sdk/cmdline-tools/cmdline-tools ~/android-sdk/cmdline-tools/latest
+
+- name: Add ANDROID_SDK_ROOT environment variable to .bashrc
+  ansible.builtin.lineinfile:
+    dest: ~/.bashrc
+    line: 'export ANDROID_SDK_ROOT=$HOME/android-sdk'
+    state: present
+    insertafter: EOF
+
+- name: Add Android SDK binary folder to PATH
+  ansible.builtin.lineinfile:
+    dest: ~/.bashrc
+    line: 'export PATH=$PATH:$HOME/android-sdk/cmdline-tools/latest/bin'
+    state: present
+    insertafter: EOF
+
+- name: Setup Android SDK using sdkmanager
+  shell: |
+    sdkmanager --update
+    yes | sdkmanager "platforms;android-33" "platform-tools" "build-tools;33.0.2" "extras;google;m2repository" "extras;android;m2repository"
+    yes | sdkmanager --licenses
+  args:
+    executable: /bin/bash
+  environment:
+    ANDROID_SDK_ROOT: "{{ ansible_env.HOME }}/android-sdk"
+    PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/android-sdk/cmdline-tools/latest/bin"

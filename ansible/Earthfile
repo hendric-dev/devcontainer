@@ -1,0 +1,8 @@
+VERSION 0.7
+
+FROM alpine:3.18
+WORKDIR /ansible
+
+file:
+  COPY . .
+  SAVE ARTIFACT /ansible

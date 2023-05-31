@@ -1,0 +1,19 @@
+- name: "[OpenSUSE] Import the Google GPG Key"
+  become: true
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://dl.google.com/linux/linux_signing_key.pub
+
+- name: "[OpenSUSE] Add the Google Chrome repository to Zypper"
+  become: true
+  community.general.zypper_repository:
+    name: google-chrome
+    repo: http://dl.google.com/linux/chrome/rpm/stable/x86_64
+    state: present
+
+- name: "[OpenSUSE] Install Google Chrome using Zypper"
+  become: true
+  community.general.zypper:
+    name: google-chrome-stable
+    state: present
+    update_cache: true

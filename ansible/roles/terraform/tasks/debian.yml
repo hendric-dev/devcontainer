@@ -1,0 +1,19 @@
+- name: "[Debian] Import HashiCorp GPG key to APT"
+  become: true
+  ansible.builtin.apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    keyring: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    state: present
+
+- name: "[Debian] Add HashiCorp repository to APT"
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+    state: present
+
+- name: "[Debian] Install Terraform using APT"
+  become: true
+  ansible.builtin.apt:
+    name: terraform
+    state: present
+    update_cache: yes

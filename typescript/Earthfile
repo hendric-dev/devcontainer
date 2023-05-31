@@ -1,6 +1,6 @@
-VERSION 0.6
+VERSION 0.7
 
-FROM ubuntu:22.04
+FROM ubuntu:23.10
 
 build:
   DO ../shared+BUILD
@@ -10,25 +10,4 @@ build:
   SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer/typescript
 
 BUILD:
-  COMMAND
-  DO +BUN
-  DO +DENO
-  DO +NODE
-
-BUN:
-  COMMAND
-  RUN curl https://bun.sh/install | bash
-  RUN sudo ln -s $HOME/.bun/bin/bun /usr/bin/bun
-
-DENO:
-  COMMAND
-  RUN curl -fsSL https://deno.land/x/install/install.sh | bash
-  RUN sudo ln -s $HOME/.deno/bin/deno /usr/bin/deno
-
-NODE:
-  COMMAND
-  ENV BASH_ENV=$HOME/.bashrc
-  ENV VOLTA_HOME=$HOME/.volta
-  ENV PATH $VOLTA_HOME/bin:$PATH
-  RUN curl https://get.volta.sh | bash
-  RUN volta install node && volta install yarn
+  DO ../shared+RUN_ANSIBLE_SCRIPT --tags=bun,node-js

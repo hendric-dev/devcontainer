@@ -1,0 +1,19 @@
+- name: Create oracle folder in home directory
+  ansible.builtin.file:
+    path: ~/oracle
+    state: directory
+    mode: '0755'
+
+- name: Download Oracle Cloud CLI install script
+  get_url:
+    url: https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh
+    dest: ~/oracle-cloud-cli.sh
+    mode: 0755
+
+- name: Execute Oracle Cloud CLI install script
+  shell: ~/oracle-cloud-cli.sh --accept-all-defaults --install-dir ~/oracle/oci --exec-dir ~/oracle/bin --script-dir ~/oracle/scripts
+
+- name: Remove Oracle Cloud CLI install script
+  ansible.builtin.file:
+    path: ~/oracle-cloud-cli.sh
+    state: absent

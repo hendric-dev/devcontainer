@@ -1,0 +1,14 @@
+- import_tasks: ../shared/tasks/import-os-specific-vars.yml
+
+- name: Install Go
+  become: true
+  ansible.builtin.package:
+    name: "{{ go_package_name }}"
+    state: present
+
+- name: Add Go path to .bashrc
+  ansible.builtin.lineinfile:
+    dest: ~/.bashrc
+    line: 'export PATH="$PATH:$HOME/go/bin"'
+    state: present
+    insertafter: EOF

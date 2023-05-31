@@ -1,0 +1,19 @@
+- name: "[OpenSUSE] Import the Microsoft GPG Key"
+  become: true
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://packages.microsoft.com/keys/microsoft.asc
+
+- name: "[OpenSUSE] Add the Visual Studio Code repository to Zypper"
+  become: true
+  community.general.zypper_repository:
+    name: vscode
+    repo: https://packages.microsoft.com/yumrepos/vscode
+    state: present
+
+- name: "[OpenSUSE] Install Visual Studio Code using Zypper"
+  become: true
+  community.general.zypper:
+    name: code
+    state: present
+    update_cache: true

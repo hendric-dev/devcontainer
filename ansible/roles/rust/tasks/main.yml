@@ -1,0 +1,29 @@
+- import_tasks: ../shared/tasks/import-os-specific-vars.yml
+
+- name: Check if Cargo is installed
+  stat:
+    path: ~/.cargo/bin/cargo
+  register: cargo
+
+- name: Download Rust install script
+  when: not cargo.stat.exists
+  get_url:
+    url: https://sh.rustup.rs
+    dest: ~/sh.rustup.rs
+    mode: 0755
+
+- name: Execute Rust install script
+  when: not cargo.stat.exists
+  shell: ~/sh.rustup.rs -y
+
+- name: Remove Rust install script
+  when: not cargo.stat.exists
+  ansible.builtin.file:
+    path: ~/sh.rustup.rs
+    state: absent
+
+- name: Install GCC
+  become: true
+  ansible.builtin.package:
+    name: "{{ gcc_package_name }}"
+    state: present

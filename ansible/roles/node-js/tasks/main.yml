@@ -1,0 +1,29 @@
+- name: Check if Volta is installed
+  stat:
+    path: ~/.volta/bin/volta
+  register: volta
+
+- name: Download Volta install script
+  when: not volta.stat.exists
+  get_url:
+    url: https://get.volta.sh
+    dest: ~/volta.sh
+    mode: 0755
+
+- name: Execute Volta install script
+  when: not volta.stat.exists
+  shell: ~/volta.sh
+
+- name: Remove Volta install script
+  when: not volta.stat.exists
+  ansible.builtin.file:
+    path: ~/volta.sh
+    state: absent
+
+- name: Install latest Node.js version
+  when: not volta.stat.exists
+  command: ~/.volta/bin/volta install node
+
+- name: Install latest Yarn version
+  when: not volta.stat.exists
+  command: ~/.volta/bin/volta install yarn

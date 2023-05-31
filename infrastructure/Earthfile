@@ -1,6 +1,6 @@
-VERSION 0.6
+VERSION 0.7
 
-FROM ubuntu:22.04
+FROM ubuntu:23.10
 
 build:
   DO ../shared+BUILD
@@ -11,71 +11,4 @@ build:
 
 BUILD:
   COMMAND
-  DO +ANSIBLE
-  DO +GOOGLE_CLOUD_CLI --VERSION=431.0.0
-  DO +GO --VERSION=1.20.1
-  DO +HELM
-  DO +JSONNET
-  DO +KUBERNETES --VERSION=1.27.0
-  DO +ORACLE_CLOUD_CLI
-  DO +TANKA
-  DO +TERRAFORM --VERSION=1.4.6
-
-ANSIBLE:
-  COMMAND
-  RUN sudo apt-get update && \
-      sudo apt-get install -y ansible && \
-      sudo rm -rf /var/lib/apt/lists/*
-
-GO:
-  COMMAND
-  ARG VERSION
-  ENV PATH $HOME/go/bin:$PATH
-  RUN curl -L https://go.dev/dl/go${VERSION}.linux-amd64.tar.gz -o go.tar.gz && \
-      tar -xzf go.tar.gz && \
-      rm go.tar.gz
-  RUN go install golang.org/x/tools/gopls@latest && \
-      go install github.com/go-delve/delve/cmd/dlv@latest && \
-      go install honnef.co/go/tools/cmd/staticcheck@latest
-
-GOOGLE_CLOUD_CLI:
-  COMMAND
-  ARG VERSION
-  RUN curl -L https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-${VERSION}-linux-x86_64.tar.gz -o gcloud.tar.gz && \
-      tar -xzf gcloud.tar.gz && \
-      rm gcloud.tar.gz
-  ENV PATH=$HOME/google-cloud-sdk/bin:$PATH
-
-HELM:
-  COMMAND
-  RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-
-JSONNET:
-  COMMAND
-  RUN go install github.com/google/go-jsonnet/cmd/jsonnet@latest && \
-      go install -a github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@latest
-
-KUBERNETES:
-  COMMAND
-  ARG VERSION
-  RUN sudo curl -LO "https://dl.k8s.io/release/v${VERSION}/bin/linux/amd64/kubectl" && \
-      sudo mv kubectl /usr/bin/ && \
-      sudo chmod +x /usr/bin/kubectl
-
-ORACLE_CLOUD_CLI:
-  COMMAND
-  RUN curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh | bash -s -- --accept-all-defaults
-
-TANKA:
-  COMMAND
-  RUN sudo curl -Lo /usr/bin/tk https://github.com/grafana/tanka/releases/latest/download/tk-linux-amd64 && \
-      sudo chown $USER:$USER /usr/bin/tk && \
-      sudo chmod 700 /usr/bin/tk
-
-TERRAFORM:
-  COMMAND
-  ARG VERSION
-  RUN curl -L https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_linux_amd64.zip -o terraform.zip && \
-      sudo unzip terraform.zip -d /usr/bin/ && \
-      sudo chmod +x /usr/bin/terraform && \
-      sudo rm terraform.zip
+  DO ../shared+RUN_ANSIBLE_SCRIPT --tags=infrastructure
