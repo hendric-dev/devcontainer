@@ -63,3 +63,24 @@ E.g. from the `flutter` directory:
 ```
 earthly +build
 ```
+
+## Some libraries are outdated?
+
+The devcontainers are updated from time to time. If you need the latest version of any tool first try to update using the package manager, e.g.:
+
+- `sudo apt update && sudo apt upgrade`
+- `sudo zypper update`
+
+The Ansible scripts to install the tools are also present in every devcontainer. It might be useful to try out those aswell to upgrade something specific, e.g.:
+
+```sh
+cd ~/ansible
+ansible-playbook main.yml -i inventory.yml --tags earthly
+```
+
+## Prefer a local setup?
+
+The devcontainers are built using Ansible scripts. \
+All tools can easily be installed locally, check out the readme inside the [ansible](./ansible) directory.
+
+Currently it supports all debian based distributions (that use apt) and OpenSUSE.
