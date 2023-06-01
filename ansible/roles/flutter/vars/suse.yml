@@ -1,2 +1,2 @@
-libgtk_package_name: libgtk-3-0
+libgtk_package_name: gtk3-devel
 ninja_package_name: ninja
