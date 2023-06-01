@@ -1,3 +1,11 @@
+- import_tasks: ../shared/tasks/import-os-specific-vars.yml
+
+- name: Install system libraries to compile Ruby
+  become: true
+  ansible.builtin.package:
+    name: "{{ libyaml_package_name }}"
+    state: present
+
 - name: Install rbenv
   become: true
   ansible.builtin.package:
