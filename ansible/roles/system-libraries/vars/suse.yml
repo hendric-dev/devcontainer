@@ -1,1 +1,2 @@
 gpg_package_name: gpg2
+openssl_dev_package_name: libopenssl-devel

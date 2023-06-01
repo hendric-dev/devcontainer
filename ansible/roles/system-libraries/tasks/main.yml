@@ -11,6 +11,7 @@
       - tar
       - vim
       - zip
+      - "{{ openssl_dev_package_name }}"
       - "{{ gpg_package_name }}"
     state: present
 

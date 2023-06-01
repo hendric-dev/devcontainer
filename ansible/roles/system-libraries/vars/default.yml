@@ -1,1 +1,2 @@
 gpg_package_name: gnupg
+openssl_dev_package_name: libssl-dev
