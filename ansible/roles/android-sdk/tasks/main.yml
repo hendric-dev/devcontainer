@@ -10,8 +10,13 @@
     dest: ~/android-sdk/cmdline-tools
     remote_src: yes
 
+- name: Remove old Android SDK version if present
+  ansible.builtin.file:
+    path: ~/android-sdk/cmdline-tools/latest
+    state: absent
+
 - name: Move Android SDK tools
-  shell: mv ~/android-sdk/cmdline-tools/cmdline-tools ~/android-sdk/cmdline-tools/latest
+  shell: mv --force ~/android-sdk/cmdline-tools/cmdline-tools ~/android-sdk/cmdline-tools/latest
 
 - name: Add ANDROID_SDK_ROOT environment variable to .bashrc
   ansible.builtin.lineinfile:
