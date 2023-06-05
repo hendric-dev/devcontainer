@@ -14,6 +14,20 @@
   when: not volta.stat.exists
   shell: ~/volta.sh
 
+- name: Set VOLTA_HOME environment variable
+  ansible.builtin.lineinfile:
+    dest: ~/.bashrc
+    line: 'export VOLTA_HOME=$HOME/.volta'
+    state: present
+    insertafter: EOF
+
+- name: Add Volta to PATH
+  ansible.builtin.lineinfile:
+    dest: ~/.bashrc
+    line: 'export PATH=$PATH:$HOME/.volta/bin'
+    state: present
+    insertafter: EOF
+
 - name: Remove Volta install script
   when: not volta.stat.exists
   ansible.builtin.file:
