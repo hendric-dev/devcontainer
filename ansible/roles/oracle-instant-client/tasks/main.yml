@@ -8,7 +8,7 @@
   ansible.builtin.file:
     path: ~/oracle
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Download Oracle Instant Client
   ansible.builtin.unarchive:
@@ -24,14 +24,14 @@
 
 - name: Set LD_LIBRARY_PATH environment variable
   ansible.builtin.lineinfile:
-    dest: ~/.bashrc
-    line: 'export LD_LIBRARY_PATH=$HOME/oracle/instantclient_21_10'
+    dest: ~/.profile
+    line: "export LD_LIBRARY_PATH=$HOME/oracle/instantclient_21_10"
     state: present
     insertafter: EOF
 
 - name: Add Oracle Instant Client to PATH
   ansible.builtin.lineinfile:
-    dest: ~/.bashrc
-    line: 'export PATH=$PATH:$HOME/oracle/instantclient_21_10'
+    dest: ~/.profile
+    line: "export PATH=$PATH:$HOME/oracle/instantclient_21_10"
     state: present
     insertafter: EOF

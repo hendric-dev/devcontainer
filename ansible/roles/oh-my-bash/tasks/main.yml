@@ -23,6 +23,6 @@
 - name: Change bash theme to agnoster
   ansible.builtin.lineinfile:
     path: ~/.bashrc
-    regexp: '^OSH_THEME='
+    regexp: "^OSH_THEME="
     state: present
     line: OSH_THEME="agnoster"

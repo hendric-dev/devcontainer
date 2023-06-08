@@ -2,7 +2,7 @@
   ansible.builtin.file:
     path: ~/android-sdk/cmdline-tools
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Download Android SDK
   ansible.builtin.unarchive:
@@ -18,17 +18,17 @@
 - name: Move Android SDK tools
   shell: mv --force ~/android-sdk/cmdline-tools/cmdline-tools ~/android-sdk/cmdline-tools/latest
 
-- name: Add ANDROID_SDK_ROOT environment variable to .bashrc
+- name: Add ANDROID_SDK_ROOT environment variable to .profile
   ansible.builtin.lineinfile:
-    dest: ~/.bashrc
-    line: 'export ANDROID_SDK_ROOT=$HOME/android-sdk'
+    dest: ~/.profile
+    line: "export ANDROID_SDK_ROOT=$HOME/android-sdk"
     state: present
     insertafter: EOF
 
 - name: Add Android SDK binary folder to PATH
   ansible.builtin.lineinfile:
-    dest: ~/.bashrc
-    line: 'export PATH=$PATH:$HOME/android-sdk/cmdline-tools/latest/bin'
+    dest: ~/.profile
+    line: "export PATH=$PATH:$HOME/android-sdk/cmdline-tools/latest/bin"
     state: present
     insertafter: EOF
 

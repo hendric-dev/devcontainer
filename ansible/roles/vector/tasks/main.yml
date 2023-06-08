@@ -5,16 +5,16 @@
     mode: 0755
 
 - name: Execute Vector install script
-  shell: ~/vector.sh -y
+  shell: ~/vector.sh --no-modify-path -y
 
 - name: Remove Vector install script
   ansible.builtin.file:
     path: ~/vector.sh
     state: absent
 
-- name: Add Vector path to .bashrc
+- name: Add Vector path to .profile
   ansible.builtin.lineinfile:
-    dest: ~/.bashrc
+    dest: ~/.profile
     line: 'export PATH="$PATH:$HOME/.vector/bin"'
     state: present
     insertafter: EOF

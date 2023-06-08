@@ -12,9 +12,9 @@
     name: rbenv
     state: present
 
-- name: Add rbenv init to .bashrc
+- name: Add rbenv init to .profile
   ansible.builtin.lineinfile:
-    dest: ~/.bashrc
+    dest: ~/.profile
     line: 'eval "$(rbenv init - bash)"'
     state: present
     insertafter: EOF

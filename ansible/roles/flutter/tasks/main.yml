@@ -14,7 +14,7 @@
   ansible.builtin.file:
     path: ~/flutter
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Download Flutter SDK
   ansible.builtin.unarchive:
@@ -24,8 +24,8 @@
 
 - name: Add Flutter binary folder to PATH
   ansible.builtin.lineinfile:
-    dest: ~/.bashrc
-    line: 'export PATH=$PATH:$HOME/flutter/bin'
+    dest: ~/.profile
+    line: "export PATH=$PATH:$HOME/flutter/bin"
     state: present
     insertafter: EOF
 

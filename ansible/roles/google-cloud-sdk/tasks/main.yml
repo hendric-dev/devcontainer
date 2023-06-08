@@ -20,9 +20,9 @@
     path: ~/google-cloud-sdk.sh
     state: absent
 
-- name: Add Google Cloud SDK path to .bashrc
+- name: Add Google Cloud SDK path to .profile
   ansible.builtin.lineinfile:
-    dest: ~/.bashrc
+    dest: ~/.profile
     line: 'export PATH="$PATH:$HOME/google-cloud-sdk/bin"'
     state: present
     insertafter: EOF

@@ -6,9 +6,9 @@
     name: "{{ go_package_name }}"
     state: present
 
-- name: Add Go path to .bashrc
+- name: Add Go path to .profile
   ansible.builtin.lineinfile:
-    dest: ~/.bashrc
+    dest: ~/.profile
     line: 'export PATH="$PATH:$HOME/go/bin"'
     state: present
     insertafter: EOF
