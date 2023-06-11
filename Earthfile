@@ -1,6 +1,6 @@
 VERSION 0.7
 
-FROM ubuntu:23.10
+FROM ubuntu:23.04
 
 build:
   DO ./shared+BUILD
@@ -9,7 +9,7 @@ build:
   DO ./typescript+BUILD
   DO +BUILD
   DO ./shared+CONFIG
-  ENTRYPOINT ["bash"]
+  ENTRYPOINT ["bash", "-l"]
   SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer
 
 BUILD:
