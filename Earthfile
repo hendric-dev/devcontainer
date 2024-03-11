@@ -1,6 +1,6 @@
-VERSION 0.7
+VERSION 0.8
 
-FROM ubuntu:23.04
+FROM ubuntu:23.10
 
 build:
   DO ./shared+BUILD
@@ -13,5 +13,5 @@ build:
   SAVE IMAGE --push ghcr.io/hendric-dev/devcontainer
 
 BUILD:
-  COMMAND
+  FUNCTION
   DO ./shared+RUN_ANSIBLE_SCRIPT --tags=cloud-sql-proxy,oracle-instant-client,ruby,vector

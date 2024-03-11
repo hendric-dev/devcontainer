@@ -1,14 +1,14 @@
-VERSION 0.7
+VERSION 0.8
 
 BUILD:
-  COMMAND
+  FUNCTION
   DO +USER
   DO +ANSIBLE
   COPY ../ansible+file/ansible $HOME/ansible
   DO +RUN_ANSIBLE_SCRIPT --tags=earthly,oh-my-bash
 
 ANSIBLE:
-  COMMAND
+  FUNCTION
   RUN sudo apt-get update && \
       sudo apt-get install -y ansible && \
       sudo rm -rf /var/lib/apt/lists/*
@@ -16,18 +16,18 @@ ANSIBLE:
   ENV ANSIBLE_FORCE_COLOR=True
 
 CONFIG:
-  COMMAND
+  FUNCTION
   COPY devcontainer.json .
   ARG config=$(cat devcontainer.json)
   LABEL devcontainer.metadata=$config
 
 RUN_ANSIBLE_SCRIPT:
-  COMMAND
+  FUNCTION
   ARG tags
   RUN ansible-playbook $HOME/ansible/main.yml -i $HOME/ansible/inventory.yml --tags $tags
 
 USER:
-  COMMAND
+  FUNCTION
   DO +USER_PREREQUISITES
   ENV USER=developer
   ENV HOME=/home/$USER
@@ -39,7 +39,7 @@ USER:
   WORKDIR $HOME
 
 USER_PREREQUISITES:
-  COMMAND
+  FUNCTION
   ENV DEBIAN_FRONTEND=noninteractive
   ENV LANG=de_DE.UTF-8
   RUN apt-get update && \
